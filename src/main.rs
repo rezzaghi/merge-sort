@@ -1,14 +1,10 @@
 use std::collections::VecDeque;
 use std::thread;
 use std::time::Instant;
-
-
 use rand::Rng;
 
 
 fn main() {
-    //let mut list: VecDeque<i32> = VecDeque::new();
-    //list = [3,4,1,1,0,2,8,3,2,1,23,5,6].into();
 
     let mut rng = rand::thread_rng();
     let mut list: VecDeque<i32> = VecDeque::new();
@@ -40,18 +36,23 @@ fn merge_sort(list: VecDeque<i32>) -> VecDeque<i32>{
         }
     }
 
-    //println!("{:?}", left);
-    //println!("{:?}", right);
-
-/*
-    let mut left_sorted:VecDeque<i32> = VecDeque::new();
-    let mut right_sorted:VecDeque<i32> = VecDeque::new();
- */
 //single thread
     //left = merge_sort(left);
     //right = merge_sort(right);
+//
 
-// multithreaded version
+
+// rayon version
+// faster than others
+let (left_sorted,right_sorted) = rayon::join(|| merge_sort(left), || merge_sort(right));
+left = left_sorted;
+right = right_sorted;
+//
+
+
+// std thread version
+// slower than others
+/*
     let job = thread::spawn(|| {
         left = merge_sort(left);
         right = merge_sort(right);
@@ -62,6 +63,7 @@ fn merge_sort(list: VecDeque<i32>) -> VecDeque<i32>{
 
     left = left_sorted;
     right = right_sorted;
+*/
 
     return merge(&mut left,&mut right)
 }
