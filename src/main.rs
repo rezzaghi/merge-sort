@@ -36,34 +36,9 @@ fn merge_sort(list: VecDeque<i32>) -> VecDeque<i32>{
         }
     }
 
-//single thread
-    //left = merge_sort(left);
-    //right = merge_sort(right);
-//
-
-
-// rayon version
-// faster than others
-let (left_sorted,right_sorted) = rayon::join(|| merge_sort(left), || merge_sort(right));
-left = left_sorted;
-right = right_sorted;
-//
-
-
-// std thread version
-// slower than others
-/*
-    let job = thread::spawn(|| {
-        left = merge_sort(left);
-        right = merge_sort(right);
-        (left, right)
-    });
-
-    let (left_sorted, right_sorted) = job.join().unwrap();
-
+    let (left_sorted,right_sorted) = rayon::join(|| merge_sort(left), || merge_sort(right));
     left = left_sorted;
     right = right_sorted;
-*/
 
     return merge(&mut left,&mut right)
 }
