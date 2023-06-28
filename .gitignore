@@ -1,1 +1,3 @@
-/target
+/rust/target
+/java/bin
+/java/settings
