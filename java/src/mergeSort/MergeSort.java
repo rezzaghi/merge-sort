@@ -1,17 +1,11 @@
 package mergeSort;
 
 import java.util.Vector;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.Future;
 import java.util.concurrent.RecursiveTask;
 
 public class MergeSort extends RecursiveTask<Vector<Integer>> {
 	private final Vector<Integer> list;
-	
+
 	public MergeSort(Vector<Integer> list) {
 		this.list = list;
 	}

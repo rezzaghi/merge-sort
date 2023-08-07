@@ -1,20 +1,30 @@
 use std::collections::VecDeque;
+use std::fs::File;
+use std::io::{self, BufRead};
 use std::time::Instant;
-use rand::Rng;
 
-fn main() {
+fn main() -> io::Result<()> {
 
-    let mut rng = rand::thread_rng();
+    let file = File::open("10000.txt")?;
+    let reader = io::BufReader::new(file);
+
     let mut list: VecDeque<i32> = VecDeque::new();
 
-    for _ in 0..10 {
-        list.push_back(rng.gen());
+    for line in reader.lines() {
+        if let Ok(line) = line {
+            if let Ok(number) = line.parse::<i32>() {
+                list.push_front(number); 
+            } else {
+                println!("Failed to parse integer from line: {}", line);
+            }
+        }
     }
 
     let time = Instant::now();
-    println!("{:?}", merge_sort(list));
+    merge_sort(list);
     let duration = time.elapsed();
     println!("time spent: {:?}", duration);
+    Ok(())
 }
 
 fn merge_sort(list: VecDeque<i32>) -> VecDeque<i32>{
