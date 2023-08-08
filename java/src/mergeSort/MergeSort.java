@@ -1,23 +1,23 @@
 package mergeSort;
 
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.concurrent.RecursiveTask;
 
-public class MergeSort extends RecursiveTask<Vector<Integer>> {
-	private final Vector<Integer> list;
+public class MergeSort extends RecursiveTask<ArrayList<Integer>> {
+	private final ArrayList<Integer> list;
 
-	public MergeSort(Vector<Integer> list) {
+	public MergeSort(ArrayList<Integer> list) {
 		this.list = list;
 	}
 	
 	
 	@Override
-	protected Vector<Integer> compute(){
+	protected ArrayList<Integer> compute(){
 		if (list.size() <= 1) {
 			return list;
 		}
-		Vector<Integer> left = new Vector<Integer>();
-		Vector<Integer> right = new Vector<Integer>();
+		ArrayList<Integer> left = new ArrayList<Integer>();
+		ArrayList<Integer> right = new ArrayList<Integer>();
 
 		for (int i = 0; i < list.size(); i++) {
 			if (i < list.size() / 2) {
@@ -33,16 +33,16 @@ public class MergeSort extends RecursiveTask<Vector<Integer>> {
         _left.fork();
         _right.fork();
 
-        Vector<Integer> leftSorted = _left.join();
-        Vector<Integer> rightSorted = _right.join();
+        ArrayList<Integer> leftSorted = _left.join();
+        ArrayList<Integer> rightSorted = _right.join();
 		
 		
 		return merge(leftSorted, rightSorted);
 		
 	}
 
-	static Vector<Integer> merge(Vector<Integer> left, Vector<Integer> right) {
-		Vector<Integer> result = new Vector<Integer>();
+	static ArrayList<Integer> merge(ArrayList<Integer> left, ArrayList<Integer> right) {
+		ArrayList<Integer> result = new ArrayList<Integer>();
 
 		while (!left.isEmpty() && !right.isEmpty()) {
 			if (left.get(0) <= right.get(0)) {
