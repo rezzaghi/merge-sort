@@ -13,7 +13,7 @@ public class Main {
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 	    ForkJoinPool pool = new ForkJoinPool();
-	    String filePath = "100000.txt"; 
+	    String filePath = "1000000.txt"; 
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		FileInputStream fis = new FileInputStream(filePath);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
